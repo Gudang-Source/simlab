@@ -23,7 +23,7 @@ class Auth_controller extends CI_Controller
         $verified = $this->Auth_model->verifikasi($input, $user_data);
         if ($verified) {
             $this->Auth_model->setSession($user_data);
-            $this->Auth_model->login($user_data->role);
+            $this->Auth_model->login($user_data->role_id);
         } else
             echo 'username atau password salah';
     }

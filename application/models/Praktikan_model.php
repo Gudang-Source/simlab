@@ -1,65 +1,83 @@
 <?php
 class Praktikan_model extends CI_Model
 {
-    private $password;
-
-    public function hashPassword($pass)
+    public function getPengaturan()
     {
-        $timeTarget = 0.05; // 50 milliseconds 
-        $cost = 8;
-        do {
-            $cost++;
-            $start = microtime(true);
-            $tmp = password_hash($pass, PASSWORD_BCRYPT, ["cost" => $cost]);
-            $end = microtime(true);
-        } while (($end - $start) < $timeTarget);
-        return $this->password = $tmp;
-    }
-
-    public function insert($data)
-    {
-        $this->hashPassword($data['password']);
-        $data['password'] = $this->password;
-        if ($this->db->insert('praktikan', $data))
-            return true;
-    }
-
-    public function update($id, $data)
-    {
-        $this->db->where('id', $id);
-        if ($this->db->update('praktikan', $data))
-            return true;
-    }
-
-    public function delete($id)
-    {
-        $this->db->where('id', $id);
-        if ($this->db->delete('praktikan'))
-            return true;
-    }
-
-    public function auth($data)
-    {
-        //Ambil hash dari db
-        $this->db->select('password');
-        $this->db->where('username', $data['username']);
-        $this->db->from('praktikan');
+        $this->db->select('tgl_mulai, tgl_akhir, value');
+        $this->db->where('id', '1');
+        $this->db->from('pengaturan');
         $query = $this->db->get();
-        //$val = array_shift($query->result_array());
-        foreach ($query->result() as $q) {
-            $val = $q->password;
-        }
-
-        // Verifikasi password
-        $pass = password_verify($data['password'], $val);
-
-        if ($pass) return true;
+        $result = $query->row();
+        return $result;
     }
 
-    public function getAllPraktikan()
+    public function cekSettings($data)
     {
-        $this->db->select('nim, nama, prodi');
-        $this->db->from('praktikan');
+        $now = date("Y-n-j");
+        $mulai = $data->tgl_mulai;
+        $akhir = $data->tgl_akhir;
+
+        if ($now >= $mulai && $now <= $akhir)
+            return TRUE;
+        else
+            return FALSE;
+    }
+
+    public function isPraktikumEmpty()
+    {
+        $nim = $_SESSION['iduser'];
+        $this->db->select('*');
+        $this->db->from('praktikum');
+        $this->db->where('mhs_id', $nim);
+        $count = $this->db->count_all_results();
+        if ($count < 1)
+            return TRUE;
+        else
+            return FALSE;
+    }
+
+    public function getAllPraktikum()
+    {
+        $this->db->select('ma.nama, ma.semester, ma.pengampu, ma.biaya_modul, j.id, j.kelas, j.sesi, j.hari', FALSE);
+        $this->db->from('jadwal as j');
+        $this->db->join('matkul as ma', 'ma.id = j.matkul_id');
+        return $this->db->get();
+    }
+
+    public function getPraktikumAvail()
+    {
+        /*
+        SELECT ma.nama, ma.semester, ma.pengampu, ma.biaya_modul, j.kelas, j.sesi, j.hari
+        FROM jadwal AS j
+        INNER JOIN matkul AS ma ON ma.id = j.matkul_id
+        INNER JOIN praktikum AS p ON p.jadwal_id != j.id
+        WHERE j.id NOT IN (SELECT jadwal_id FROM praktikum WHERE mhs_id = 1500016034)
+        GROUP BY j.id
+        */
+
+        $mhs = $_SESSION['iduser'];
+        $this->db->select('ma.nama, ma.semester, ma.pengampu, ma.biaya_modul, j.id, j.kelas, j.sesi, j.hari', FALSE);
+        $this->db->from('jadwal as j');
+        $this->db->join('matkul as ma', 'ma.id = j.matkul_id');
+        $this->db->join('praktikum as p', 'p.jadwal_id != j.id');
+        $this->db->where_not_in('j.id', "(SELECT jadwal_id FROM praktikum WHERE mhs_id = $mhs)", FALSE);
+        $this->db->group_by('j.id');
+        return $this->db->get();
+    }
+
+    public function addPraktikum($data)
+    {
+        return $this->db->insert('praktikum', $data);
+    }
+
+    public function getJadwal()
+    {
+        $mhs = $_SESSION['iduser'];
+        $this->db->select('ma.nama, ma.semester, ma.pengampu, j.kelas, j.sesi, j.hari', FALSE);
+        $this->db->from('jadwal as j');
+        $this->db->join('matkul as ma', 'ma.id = j.matkul_id');
+        $this->db->join('praktikum as p', 'p.jadwal_id = j.id');
+        $this->db->where('p.mhs_id', $mhs);
         return $this->db->get();
     }
 }

@@ -12,7 +12,7 @@ class Laboran_controller extends CI_Controller
 
     public function index()
     {
-        if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
+        if (isset($_SESSION['username']) && $_SESSION['role'] == 2) {
             $val = $this->input->get('page');
             switch ($val) {
                 case "dashboard":

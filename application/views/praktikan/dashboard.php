@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>Praktikan Dashboard | SIMLAB</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -35,57 +35,14 @@
 <body>
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
-                    </li>
-                    <li class="menu-title">Praktikan</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Praktikum</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo site_url('praktikan/index'); ?>">Daftar Praktikum</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo site_url('praktikan/index'); ?>">Info Jadwal Praktikum</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Info Nilai</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo site_url('praktikan/index'); ?>">Latihan</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo site_url('praktikan/index'); ?>">Modul</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo site_url('praktikan/index'); ?>">Pengajuan Bebas Lab</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </nav>
+        <?php $this->load->view('praktikan/partials/navbar'); ?>
     </aside>
     <!-- /#left-panel -->
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
         <!-- Header-->
         <header id="header" class="header">
-            <div class="top-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="Logo"></a>
-                    <a class="navbar-brand hidden" href="./"><img src="<?php echo base_url('images/logo2.png'); ?>" alt="Logo"></a>
-                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-                </div>
-            </div>
-            <div class="top-right">
-                <div class="header-menu">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="<?php echo base_url('assets/images/admin.jpg'); ?>" alt="User Avatar">
-                        </a>
-
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php $this->load->view('praktikan/partials/navbar2'); ?>
         </header>
         <!-- /#header -->
         <!-- Content -->
@@ -293,16 +250,7 @@
                 <div class="clearfix"></div>
                 <!-- Footer -->
                 <footer class="site-footer">
-                    <div class="footer-inner bg-white">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                Copyright &copy; 2018 Ela Admin
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                Designed by <a href="https://colorlib.com">Colorlib</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php $this->load->view('praktikan/partials/footer'); ?>
                 </footer>
                 <!-- /.site-footer -->
             </div>

@@ -7,16 +7,16 @@ class Auth_model extends CI_Model
     public function login($role)
     {
         switch ($role) {
-            case "superadmin":
+            case 1:
                 redirect('Kalab_controller/?page=dashboard');
                 break;
-            case "admin":
+            case 2:
                 redirect('Laboran_controller/?page=dashboard');
                 break;
-            case "asisten":
+            case 3:
                 redirect('Asisten_controller/?page=dashboard');
                 break;
-            case "praktikan":
+            case 4:
                 redirect('Praktikan_controller/?page=dashboard');
                 break;
             default:
@@ -26,7 +26,7 @@ class Auth_model extends CI_Model
 
     public function selectUser($data)
     {
-        $this->db->select('nama, username, password, role');
+        $this->db->select('id, nama, username, password, role_id');
         $this->db->where('username', $data['username']);
         $this->db->from('users');
         $query = $this->db->get();
@@ -44,9 +44,10 @@ class Auth_model extends CI_Model
 
     public function setSession($data)
     {
+        $_SESSION['iduser'] = $data->id;
         $_SESSION['nama'] = $data->nama;
         $_SESSION['username'] = $data->username;
-        $_SESSION['role'] = $data->role;
+        $_SESSION['role'] = $data->role_id;
     }
 
     public function destroySession()
