@@ -47,7 +47,7 @@ class Laboran_controller extends CI_Controller
 
     public function tampilPraktikan()
     {
-        $data['praktikan'] = $this->Laboran_model->getUser('praktikan');
+        $data['praktikan'] = $this->Laboran_model->getUser(4);
         $this->load->view('laboran/kelola_praktikan', $data);
     }
 
@@ -59,7 +59,7 @@ class Laboran_controller extends CI_Controller
             'prodi' => $this->input->post('prodi'),
             'username' => $this->input->post('user'),
             'password' => $this->input->post('pass'),
-            'role' => 'praktikan'
+            'role_id' => 4
         );
         //$data = sanitasiInput($temp);
         if ($this->Laboran_model->addUser($data)) {
@@ -94,7 +94,7 @@ class Laboran_controller extends CI_Controller
 
     public function tampilAsisten()
     {
-        $data['asisten'] = $this->Laboran_model->getUser('asisten');
+        $data['asisten'] = $this->Laboran_model->getUser(3);
         $this->load->view('laboran/kelola_asisten', $data);
     }
 
@@ -106,7 +106,7 @@ class Laboran_controller extends CI_Controller
             'prodi' => $this->input->post('prodi'),
             'username' => $this->input->post('user'),
             'password' => $this->input->post('pass'),
-            'role' => 'asisten'
+            'role_id' => 3
         );
         //$data = sanitasiInput($temp);
         if ($this->Laboran_model->addUser($data)) {
@@ -118,7 +118,7 @@ class Laboran_controller extends CI_Controller
     public function editAsisten()
     {
         $data = array(
-            'nim' => $this->input->post('id'),
+            'id' => $this->input->post('id'),
             'nama' => $this->input->post('nama'),
             'prodi' => $this->input->post('prodi')
         );

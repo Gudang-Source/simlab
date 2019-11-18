@@ -19,7 +19,7 @@ class Laboran_model extends CI_Model
     public function getUser($role)
     {
         $this->db->select('id, nama, prodi');
-        $this->db->where('role', $role);
+        $this->db->where('role_id', $role);
         $this->db->from('users');
         return $this->db->get();
     }
