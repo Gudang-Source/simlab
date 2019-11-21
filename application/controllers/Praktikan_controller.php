@@ -79,7 +79,7 @@ class Praktikan_controller extends CI_Controller
 
     public function tampilJadwal()
     {
-        $data['jadwal'] = $this->Praktikan_model->getJadwal();
+        $data['jadwal'] = $this->Praktikan_model->getJadwalUser();
         $this->load->view('praktikan/praktikum_jadwal', $data);
     }
 
@@ -87,5 +87,11 @@ class Praktikan_controller extends CI_Controller
     { }
 
     public function tampilNilai()
+    { }
+
+    public function cetakJadwal()
+    { }
+
+    public function cetakBuktiBayar()
     { }
 }

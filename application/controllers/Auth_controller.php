@@ -5,9 +5,9 @@ class Auth_controller extends CI_Controller
 {
     public function index()
     {
-        $session = $this->session->userdata();
-        if (isset($session['role'])) {
-            $this->Auth_model->login($session['role']);
+        $user = $this->Auth_model->cekUser();
+        if (isset($user['role'])) {
+            $this->Auth_model->login($user['role']);
         } else
             $this->load->view('login/pengguna');
     }

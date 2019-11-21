@@ -4,6 +4,16 @@ defined('BASEPATH') or exit();
 class Auth_model extends CI_Model
 {
 
+    public function cekUser()
+    {
+        if (isset($_SESSION['iduser']) && isset($_SESSION['role'])) {
+            $id = $_SESSION['iduser'];
+            $role = $_SESSION['role'];
+            return array('id' => $id, 'role' => $role);
+        } else
+            return FALSE;
+    }
+
     public function login($role)
     {
         switch ($role) {

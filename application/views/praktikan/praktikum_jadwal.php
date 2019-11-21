@@ -58,7 +58,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="box-title">Jadwal praktikum yang diambil</h4>
+                                <a href="<?php echo site_url('Cetak_controller/cetakJadwal'); ?>" type="button" class="btn btn-success" style="margin:4.5pt" target="_blank">Cetak Jadwal</a>
+                                <a href="<?php echo site_url('Cetak_controller/cetakBuktiBayar'); ?>" type="button" class="btn btn-success" style="margin:4.5pt" target="_blank">Cetak Pembayaran</a>
                             </div>
                             <div class="card-body">
                                 <?php echo form_open(); ?>
